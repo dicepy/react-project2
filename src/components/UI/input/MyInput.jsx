@@ -1,7 +1,9 @@
 import React from 'react'
-
-export default function MyInput(props) {
+import classes from './MyInput.module.css'
+const MyInput = (props) => {
   return (
-    <input {...props}/>
+    <input className={classes.myInput} {...props}/>
   )
 }
+
+export default MyInput
