@@ -1,8 +1,9 @@
 import React from "react";
 import './styles/App.css'
 import Posts from "./pages/Posts";
-import {BrowserRouter, Route, Routes, Link} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import About from "./pages/About";
+import Navbar from "./components/UI/Navbar/Navbar";
 
 
 function App() {
@@ -11,15 +12,12 @@ function App() {
   return (
     
     <BrowserRouter>
-      <div className="navbar">
-        <div className="navbar__links">
-          <Link to="/about">О сайте</Link>
-          <Link to="/posts">Посты</Link>
-        </div>
-      </div>
+      <Navbar/>
+
       <Routes>
         <Route path="/about" element={<About/>} />
         <Route path="/posts" element={<Posts/>} />
+        <Route path="*" element={<Posts/>}/>
       </Routes>
 
     </BrowserRouter>
