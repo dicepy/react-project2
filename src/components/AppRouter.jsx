@@ -1,21 +1,37 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Route, Routes } from 'react-router-dom';
-import {routes} from "../router/Routes";
+import {publicRoutes, privateRoutes} from "../router/Routes";
+import {AuthContext} from "../context";
 
 
 
 const AppRouter = () => {
+    const {isAuth} = useContext(AuthContext);
     return (
-        <Routes>
-            {routes.map((route, index) => (
-                <Route
-                    key={index}
-                    path={route.path}
-                    element={route.component}
-                    exact={route.exact}
-                />
-            ))}
-        </Routes>
+        isAuth
+            ?<Routes>
+                {privateRoutes.map((route, index) => (
+                    <Route
+                        key={index}
+                        path={route.path}
+                        element={route.component}
+                        exact={route.exact}
+                    />
+                ))}
+
+            </Routes>
+            :<Routes>
+                {publicRoutes.map((route, index) => (
+                    <Route
+                        key={index}
+                        path={route.path}
+                        element={route.component}
+                        exact={route.exact}
+                    />
+                ))}
+
+            </Routes>
+
     );
 };
 
