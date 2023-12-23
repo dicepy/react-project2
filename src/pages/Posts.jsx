@@ -25,7 +25,7 @@ function Posts() {
 
     const [fetchPosts, isPostsLoading, postError] = useFetching(async (limit, page) => {
         const response = await PostService.getAll(limit,page);
-        setPosts(response.data)
+        setPosts([...posts, ...response.data])
         const totalCount = response.headers['x-total-count']
         setTotalPages(getPageCount(totalCount, limit))
     })
@@ -65,11 +65,11 @@ function Posts() {
             <PostFilter filter={filter} setFilter={setFilter}/>
             {postError &&
                 <h1>Произошла ошибка ${postError}</h1>}
-            {
-                isPostsLoading
-                    ? <div style={{display:'flex', justifyContent: 'center', marginTop:'50px'}}><Loader/></div>
-                    : <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Список постов 1"/>
+            <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Список постов 1"/>
+            {isPostsLoading &&
+                <div style={{display:'flex', justifyContent: 'center', marginTop:'50px'}}><Loader/></div>
             }
+
             <Pagination page={page} changePage={changePage} totalPages={totalPages}/>
         </div>
     );
